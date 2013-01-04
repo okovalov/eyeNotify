@@ -1,0 +1,89 @@
+<html>
+    <head>
+        <title>20/20/20 Tool</title>
+        <!-- @copyright 2012 Kevin Thackorie <http://www.github.com/kevin-thackorie -->
+    </head>
+    <body>
+        
+        <p>20 minute timer started...</p>
+        <p id="remaining"></p>
+
+        <script type="text/javascript">
+            var Timing = function() 
+            {
+                // @var integer The number of seconds to the next break
+                var i;
+                
+                // @var window.setInterval event
+                var interval1;
+                
+                // @var window.setInterval event
+                var interval2;
+
+                /**
+                 * The pseudo-constructor. This sets the starting number of seconds and uses it to begin the countdowns
+                 * 
+                 * @param string [reload] Used as a flag to indicate whether or not this is the first run
+                 */
+                this.setTimer = function(reload) 
+                {
+                    var self = this;
+                    
+                    // if this is NOT the first break...
+                    if (reload == 'true') {
+                            // set the counter to 20 minutes plus 25 seconds to account for the present break
+                            this.i =1225;
+                    } else {
+                            // otherwise, set the counter to 20 minutes exactly
+                            this.i  = 1200;
+                    }
+                    
+                    // start the 20 minute countdown for the calling of a break
+                    this.interval1 = window.setInterval(function(){ self.callForBreak() }, (this.i * 1000));
+
+                    // start updating the "time remaining" feature every second
+                    this.interval2 = window.setInterval(function(){ self.update() }, 1000);
+                }
+
+                /**
+                 * Opens the break notification window, removes running countdowns, and starts the process over again
+                 */
+                this.callForBreak = function()
+                {                       
+                    // open a new window to notify the user that they should take a break
+                    window.open('break.html', 'Take a 20/20/20 break', 'width=600,height=300');
+                    
+                    // the following two lines remove the previously initiated countdowns from memory to prevent overload
+                    window.clearInterval(this.interval1);
+                    window.clearInterval(this.interval2);
+                    
+                    // starts the countdown process over again
+                    this.setTimer('true');
+                }
+
+                /**
+                 * Updates the "time remaining" feature in format MM:SS
+                 */
+                this.update = function() 
+                {
+                    // only decrement the counter if time has not already run out
+                    if (this.i > 0) {
+                        this.i--;
+                        var minutes = Math.floor(this.i / 60);
+                        var seconds = this.i - minutes * 60;
+                        document.getElementById('remaining').innerHTML = minutes + ':' + seconds + ' remaining before you should stare at something 20 meters away for 20 seconds.';
+                        // uncomment the next line if you want the tab's title to countdown the "minutes:seconds" to the next break
+                        //document.title = minutes + ':' + seconds;
+                    }
+                }
+            }
+            
+            // instantiate the Timing object
+            var timer = new Timing();
+            
+            // trigger the countdown process
+            timer.setTimer('false');
+        </script>
+        
+    </body>
+</html>

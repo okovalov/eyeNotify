@@ -1,0 +1,41 @@
+<html>
+    <head>
+        <title>Take a 20/20 Break!</title>
+        <!-- @copyright 2012 Kevin Thackorie <http://www.github.com/kevin-thackorie -->
+    </head>
+    <body>	
+        
+        <p>Take a 20/20 break!</p>
+        <p>Focus on an object that is 20 meters away for 20 seconds.</p>
+        <p id="remaining"></p>
+        
+        <script type="text/javascript">
+            // @var integer The duration of the break in seconds. 5 seconds added to allow the user to read the instructions
+            var j = 25;
+            
+            // @var element The dynamic <p> tag
+            var p = document.getElementById('remaining');
+            
+            // start counting down to the end of the break
+            window.setInterval(function() {
+                if (j > 0) {
+                        j--;
+                        
+                        // if the counter is still in the 5 second "overtime"...
+                        if (j > 20) {
+                            // show a countdown to the start of the break
+                            p.innerHTML = 'Break starts in ' + (25 - j) + ' seconds...';
+                        } else {
+                            // show the seconds left in the actual break
+                            p.innerHTML = 'You still have ' + j + ' seconds remaining.';
+                        }
+                }
+                else {
+                        // the break is over, so close the window
+                        window.close();
+                }
+            }, 1000);
+        </script>
+        
+    </body>
+</html>
