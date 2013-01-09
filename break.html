@@ -16,7 +16,7 @@
             // @var element The dynamic <p> tag
             var p = document.getElementById('remaining');
             
-            // start counting down to the end of the break
+            // start counting down, second by second, to the end of the break
             window.setInterval(function() {
                 if (j > 0) {
                         j--;
@@ -24,7 +24,9 @@
                         // if the counter is still in the 5 second "overtime"...
                         if (j > 20) {
                             // show a countdown to the start of the break
-                            p.innerHTML = 'Break starts in ' + (25 - j) + ' seconds...';
+                            p.innerHTML = 'Break starts in ' + (j - 20) + ' seconds...';
+                        } else if (j == 0) {
+                            p.innerHTML = "Break is over.";
                         } else {
                             // show the seconds left in the actual break
                             p.innerHTML = 'You still have ' + j + ' seconds remaining.';
