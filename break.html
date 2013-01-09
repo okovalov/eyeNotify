@@ -25,6 +25,8 @@
                         if (j > 20) {
                             // show a countdown to the start of the break
                             p.innerHTML = 'Break starts in ' + (j - 20) + ' seconds...';
+                        } else if (j ==20) {
+                            p.innerHTML = "Start your vision break!";
                         } else if (j == 0) {
                             p.innerHTML = "Break is over.";
                         } else {
