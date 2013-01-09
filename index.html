@@ -72,7 +72,7 @@
                         var minutes = Math.floor(this.i / 60);
                         var seconds = Math.round(this.i - minutes * 60).toFixed();
                         // prepend a "0" to seconds so that it stays 2 digits
-                        if (this.i < 10) { seconds = '0' + seconds }
+                        if (seconds < 10) { seconds = '0' + seconds }
                         document.getElementById('remaining').innerHTML = minutes + ':' + seconds + ' remaining before you should stare at something 20 meters away for 20 seconds.';
                         // uncomment the next line if you want the tab's title to countdown the "minutes:seconds" to the next break
                         //document.title = minutes + ':' + seconds;
