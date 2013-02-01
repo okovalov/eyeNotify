@@ -2,13 +2,14 @@
     <head>
         <title>Take a 20/20 Break!</title>
         <!-- @copyright 2013 Kevin Thackorie <http://www.github.com/kevin-thackorie -->
+        <link type="text/css" rel="stylesheet" href="base.css" />
     </head>
     <body>	
-        
-        <p>Take a 20/20 break!</p>
-        <p>Focus on an object that is 20 ft. away for 20 seconds.</p>
-        <p id="remaining"></p>
-        
+        <div id="wrapper">
+            <p>Take a 20/20 break!</p>
+            <p>Focus on an object that is 20 ft. away for 20 seconds.</p>
+            <p id="remaining"></p>
+        </div>
         <script type="text/javascript">
             // @var integer The duration of the break in seconds. 5 seconds added to allow the user to read the instructions
             var j = 25;
@@ -24,14 +25,14 @@
                         // if the counter is still in the 5 second "overtime"...
                         if (j > 20) {
                             // show a countdown to the start of the break
-                            p.innerHTML = 'Break starts in ' + (j - 20) + ' seconds...';
+                            p.innerHTML = 'Break starts in <span id="time">' + (j - 20) + '</span>  seconds...';
                         } else if (j ==20) {
                             p.innerHTML = "Start your vision break!";
                         } else if (j == 0) {
                             p.innerHTML = "Break is over.";
                         } else {
                             // show the seconds left in the actual break
-                            p.innerHTML = 'You still have ' + j + ' seconds remaining.';
+                            p.innerHTML = 'You still have <span id="time">' + j + '</span> seconds remaining.';
                         }
                 }
                 else {
@@ -40,6 +41,5 @@
                 }
             }, 1000);
         </script>
-        
     </body>
 </html>

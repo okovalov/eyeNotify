@@ -2,21 +2,22 @@
     <head>
         <title>eyeNotify</title>
         <!-- @copyright 2013 Kevin Thackorie <http://www.github.com/kevin-thackorie -->
+        <link type="text/css" rel="stylesheet" href="base.css" />
     </head>
     <body>
-        
-        <p>20 minute timer started...</p>
-        <p id="remaining"></p>
-
+        <div id="wrapper">
+            <p>20 minute timer started...</p>
+            <p><span id="time"></span><span id="remaining"></span></p>
+        </div>
         <script type="text/javascript">
             var Timing = function() 
             {
                 // @var integer The number of seconds to the next break
                 var i;
-                
+
                 // @var window.setInterval event
                 var interval1;
-                
+
                 // @var window.setInterval event
                 var interval2;
 
@@ -28,7 +29,7 @@
                 this.setTimer = function(reload) 
                 {
                     var self = this;
-                    
+
                     // if this is NOT the first break...
                     if (reload == 'true') {
                             // set the counter to 20 minutes plus 25 seconds to account for the present break
@@ -37,7 +38,7 @@
                             // otherwise, set the counter to 20 minutes exactly
                             this.i  = 1200;
                     }
-                    
+
                     // start the 20 minute countdown for the calling of a break
                     this.interval1 = window.setInterval(function(){ self.callForBreak() }, (this.i * 1000));
 
@@ -52,11 +53,11 @@
                 {                       
                     // open a new window to notify the user that they should take a break
                     window.open('break.html', 'Take a 20/20/20 break!', 'width=600,height=300');
-                    
+
                     // the following two lines remove the previously initiated countdowns from memory to prevent overload
                     window.clearInterval(this.interval1);
                     window.clearInterval(this.interval2);
-                    
+
                     // starts the countdown process over again
                     this.setTimer('true');
                 }
@@ -73,19 +74,19 @@
                         var seconds = Math.round(this.i - minutes * 60).toFixed();
                         // prepend a "0" to seconds so that it stays 2 digits
                         if (seconds < 10) { seconds = '0' + seconds }
-                        document.getElementById('remaining').innerHTML = minutes + ':' + seconds + ' remaining before you should stare at something 20 ft. away for 20 seconds.';
+                        document.getElementById('time').innerHTML = minutes + ':' + seconds;
+                        document.getElementById('remaining').innerHTML = ' remaining before you should stare at something 20 ft. away for 20 seconds.';
                         // uncomment the next line if you want the tab's title to countdown the "minutes:seconds" to the next break
                         //document.title = minutes + ':' + seconds;
                     }
                 }
             }
-            
+
             // instantiate the Timing object
             var timer = new Timing();
-            
+
             // trigger the countdown process
             timer.setTimer('false');
         </script>
-        
     </body>
 </html>
