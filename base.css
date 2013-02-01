@@ -6,6 +6,7 @@
 
 body {
     text-align: center; /* to allow centering of the page in IE6 */
+    background-color: #C7C7C7;
 }
 
 #wrapper {
@@ -25,4 +26,5 @@ p {
 
 #time {
     font-size: 150%;
+    color: #FF6A00;
 }
