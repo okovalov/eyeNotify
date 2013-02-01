@@ -5,7 +5,7 @@ A simple tool for reminding users to take a "vision break" according to the 20/2
 
 ## Installation
 
-Using this tool is simple. It is browser-based, so all you need to do is have both HTML files in the same directory, and open "index.html" in a web browser. That's it!
+Using this tool is simple. It is browser-based, so all you need to do is have all the source files in the same directory, and open "index.html" in a web browser. That's it!
 
 ## License
 
