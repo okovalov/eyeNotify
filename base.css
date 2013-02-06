@@ -11,13 +11,13 @@ body {
 
 #wrapper {
     width: 960px;
-    margin: 40px auto 0 auto;
+    margin: 40px auto 0 40px;
     
     text-align: left;
     
     font-family: Helvetica, sans-serif;
     font-size: 14pt;
-    color: #333;
+    color: #333; /* a dark grey */
 }
 
 p {
@@ -26,5 +26,5 @@ p {
 
 #time {
     font-size: 150%;
-    color: #FF6A00;
+    color: #FC6900; /* a dark orange */
 }
