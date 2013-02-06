@@ -24,6 +24,10 @@ p {
     margin:10px 0;
 }
 
+#remaining {
+    margin-top: 20px;
+}
+
 #time {
     font-size: 150%;
     color: #FC6900; /* a dark orange */

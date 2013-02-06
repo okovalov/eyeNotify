@@ -7,7 +7,7 @@
     <body>
         <div id="wrapper">
             <p>20 minute timer started...</p>
-            <p><span id="time"></span><span id="remaining"></span></p>
+            <p id="remaining"></p>
         </div>
         <script type="text/javascript">
             var Timing = function() 
@@ -74,8 +74,7 @@
                         var seconds = Math.round(this.i - minutes * 60).toFixed();
                         // prepend a "0" to seconds so that it stays 2 digits
                         if (seconds < 10) { seconds = '0' + seconds }
-                        document.getElementById('time').innerHTML = minutes + ':' + seconds;
-                        document.getElementById('remaining').innerHTML = ' remaining before you should stare at something 20 ft. away for 20 seconds.';
+                        document.getElementById('remaining').innerHTML = '<span id="time">' + minutes + ':' + seconds + '</span> remaining before you should stare at something 20 ft. away for 20 seconds.';
                         // uncomment the next line if you want the tab's title to countdown the "minutes:seconds" to the next break
                         //document.title = minutes + ':' + seconds;
                     }
