@@ -6,6 +6,7 @@
     </head>
     <body>
         <div id="wrapper">
+            <h1>eyeNotify</h1>
             <p>20 minute timer started...</p>
             <p id="remaining"></p>
         </div>
@@ -16,14 +17,17 @@
                 // @var integer The number of seconds to the next break
                 var i;
 
+                // @var integer A constant used to define the cycle time (in seconds)
+                var cycleTime;
+
                 // @var window.setInterval event
                 var interval1;
 
                 // @var window.setInterval event
                 var interval2;
 
-					 // @var boolean A flag to track whether or not this is the first countdown
-					 var isFirstRun = true;
+                // @var boolean A flag to track whether or not this is the first countdown
+                var isFirstRun = true;
 
                 /**
                  * The pseudo-constructor. This sets the starting number of seconds and uses it to begin the countdowns
@@ -32,23 +36,27 @@
                  */
                 this.setTimer = function(reload) 
                 {
+                    // store the present scope of "this" or use later in a closure
                     var self = this;
+
+                    // define the overal cycle time in seconds (20 minutes by default, but can be changed for testing)
+                    this.cycleTime = 1200;
 
                     // if this is NOT the first break...
                     if (reload == 'true') {
-                            // set the counter to 20 minutes plus 25 seconds to account for the present break
-                            this.i =1225;
+                            // set the counter to the cycle time plus 25 seconds to account for the present break
+                            this.i = this.cycleTime + 25;
                             this.isFirstRun = false;
                     } else {
-                            // otherwise, set the counter to 20 minutes exactly
-                            this.i  = 1200;
+                            // otherwise, set the counter to the normal cycle time
+                            this.i = this.cycleTime;
                     }
 
-                    // start the 20 minute countdown for the calling of a break
-                    this.interval1 = window.setInterval(function(){ self.callForBreak() }, (this.i * 1000));
+                    // start the countdown to the break
+                    this.interval1 = window.setInterval(function() { self.callForBreak() }, (self.cycleTime * 1000));
 
                     // start updating the "time remaining" feature every second
-                    this.interval2 = window.setInterval(function(){ self.update() }, 1000);
+                    this.interval2 = window.setInterval(function() { self.update() }, 1000);
                 }
 
                 /**
@@ -56,11 +64,11 @@
                  */
                 this.callForBreak = function()
                 {                       
-						  // play a notification sound to signal the start of the break (and wait 1.5 seconds before continuing)
-						  this.playSound('notify');                
+                    // play a notification sound to signal the start of the break (and wait 1.5 seconds before continuing)
+                    this.playSound('notify');                
                 
                     // open a new window to notify the user that they should take a break
-                    window.open('break.html', 'Take a 20/20/20 break!', 'width=1000,height=500');
+                    window.open('break.html', 'Take a 20/20/20 break!', 'width=1000, height=500');
 
                     // the following two lines remove the previously initiated countdowns from memory to prevent overload
                     window.clearInterval(this.interval1);
@@ -77,10 +85,10 @@
                 {
                     // only decrement the counter if time has not already run out
                     if (this.i > 0) {
-								// play the notification sound to signal the end of the break
-								if (this.isFirstRun && this.i == 1200) {
-									this.playSound('notify');
-								}                    
+                        // play the notification sound to signal the end of the current break
+                        if (this.isFirstRun && this.i == this.cycleTime) {
+                            this.playSound('notify');
+                        }                    
                     
                         this.i--;
                         var minutes = Math.floor(this.i / 60);
@@ -98,10 +106,10 @@
                 *
                 * @param filename The name of the audio file WITHOUT the file extension
                 */
-	            this.playSound = function(filename)
-	            {   
-	                document.getElementById('sound').innerHTML='<audio autoplay="autoplay"><source src="' + filename + '.mp3" type="audio/mpeg" /><source src="' + filename + '.ogg" type="audio/ogg" /><embed hidden="true" autostart="true" loop="false" src="' + filename +'.mp3" /></audio>';
-	            }
+                this.playSound = function(filename)
+                {   
+                    document.getElementById('sound').innerHTML = '<audio autoplay="autoplay"><source src="' + filename + '.mp3" type="audio/mpeg" /><source src="' + filename + '.ogg" type="audio/ogg" /><embed hidden="true" autostart="true" loop="false" src="' + filename + '.mp3" /></audio>';
+                }
             }
 
             // instantiate the Timing object
