@@ -9,6 +9,7 @@
             <p>20 minute timer started...</p>
             <p id="remaining"></p>
         </div>
+        <div id="sound"></div>
         <script type="text/javascript">
             var Timing = function() 
             {
@@ -20,6 +21,9 @@
 
                 // @var window.setInterval event
                 var interval2;
+
+					 // @var boolean A flag to track whether or not this is the first countdown
+					 var isFirstRun = true;
 
                 /**
                  * The pseudo-constructor. This sets the starting number of seconds and uses it to begin the countdowns
@@ -34,6 +38,7 @@
                     if (reload == 'true') {
                             // set the counter to 20 minutes plus 25 seconds to account for the present break
                             this.i =1225;
+                            this.isFirstRun = false;
                     } else {
                             // otherwise, set the counter to 20 minutes exactly
                             this.i  = 1200;
@@ -51,6 +56,9 @@
                  */
                 this.callForBreak = function()
                 {                       
+						  // play a notification sound to signal the start of the break (and wait 1.5 seconds before continuing)
+						  this.playSound('notify');                
+                
                     // open a new window to notify the user that they should take a break
                     window.open('break.html', 'Take a 20/20/20 break!', 'width=1000,height=500');
 
@@ -69,16 +77,31 @@
                 {
                     // only decrement the counter if time has not already run out
                     if (this.i > 0) {
+								// play the notification sound to signal the end of the break
+								if (this.isFirstRun && this.i == 1200) {
+									this.playSound('notify');
+								}                    
+                    
                         this.i--;
                         var minutes = Math.floor(this.i / 60);
                         var seconds = Math.round(this.i - minutes * 60).toFixed();
                         // prepend a "0" to seconds so that it stays 2 digits
                         if (seconds < 10) { seconds = '0' + seconds }
                         document.getElementById('remaining').innerHTML = '<span id="time">' + minutes + ':' + seconds + '</span> remaining before you should stare at something 20 ft. away for 20 seconds.';
-                        // uncomment the next line if you want the tab's title to countdown the "minutes:seconds" to the next break
+                        // uncomment the next line if you want the browser tab's title to countdown the "minutes:seconds" to the next break
                         //document.title = minutes + ':' + seconds;
                     }
                 }
+                
+               /**
+                * Play a notification sound
+                *
+                * @param filename The name of the audio file WITHOUT the file extension
+                */
+	            this.playSound = function(filename)
+	            {   
+	                document.getElementById('sound').innerHTML='<audio autoplay="autoplay"><source src="' + filename + '.mp3" type="audio/mpeg" /><source src="' + filename + '.ogg" type="audio/ogg" /><embed hidden="true" autostart="true" loop="false" src="' + filename +'.mp3" /></audio>';
+	            }
             }
 
             // instantiate the Timing object
