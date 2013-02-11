@@ -86,7 +86,7 @@
                     // only decrement the counter if time has not already run out
                     if (this.i > 0) {
                         // play the notification sound to signal the end of the current break
-                        if (this.isFirstRun && this.i == this.cycleTime) {
+                        if (this.isFirstRun == false && this.i == this.cycleTime) {
                             this.playSound('notify');
                         }                    
                     
